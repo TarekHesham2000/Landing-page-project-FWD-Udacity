@@ -23,15 +23,14 @@
  * Define Global Variables
  *
  */
-const naveTotal=document.getElementById('navbar__list');
-const sections=Array.from(document.querySelectorAll('section'));
+const sections = Array.from(document.querySelectorAll('section'));
+const navBar = document.getElementById("navbar__list");
 
 /**
  * End Global Variables
  * Start Helper Functions
  *
  */
-
 
 
 /**
@@ -41,39 +40,56 @@ const sections=Array.from(document.querySelectorAll('section'));
  */
 
 // build the nav
-
-function createListItem(){
-    let listItem;
-    for (const sec of sections) {
-        listItem = document.createElement(`li`)
-        listItem.innerHTML = '<li><a href="#${sec.id}" data-nav="${sec.id}" class="menu__link">${sec.dataset.nav}</a></li>';
-        naveTotal.append(listItem);
-    }
-}
-createListItem();
+const createNavItems = () => {
+    navBar.innerHTML = "";
+    document.querySelectorAll("section").forEach((section) => {
+        const listItem = `<li><a href="#${section.id}" data-nav="${section.id}" class="menu__link">${section.dataset.nav}</a></li>`;
+        navBar.insertAdjacentHTML("beforeend", listItem);
+    });
+};
+createNavItems();
 // Add class 'active' to section when near top of viewport
-window.onscroll = function (){
-    document.querySelectorAll("section").forEach(function (active){
-        if (
-            active.getBoundingClientRect().top >= -400&&
-            active.getBoundingClientRect().top <= 150
-        ){
-            active.classList.add("your-active-class");
-        }else{
-            active.classList.remove("your-active-class");
-        }
+const dropDown = (section) => {
+    return Math.floor(section.getBoundingClientRect().top);
+};
+
+// remove the active class
+const removeActive = (section) => {
+    section.classList.remove('your-active-class');
+    section.style.cssText = "background-color: linear-gradient(0deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.2) 100%)";
+};
+// adding the active class
+const addActive = (conditional, section) => {
+    if(conditional){
+        section.classList.add('your-active-class');
+        section.style.cssText = "background-color:#245b84 ;";
+    };
+};
+
+//implementating the actual function
+
+const activeSection = () => {
+    sections.forEach(section => {
+        const sectiondropDown = dropDown(section);
+
+        inview = () => sectiondropDown < 160 && sectiondropDown >= -160;
+
+        removeActive(section);
+        addActive(inview(),section);
     });
 };
 
-naveTotal.addEventListener("click",(toSec) => {
-    toSec.preventDefault();
-    if(toSec.target.dataset.nav){
-        document
-            .getElementById('${toSet.target.dataset.nav}')
-            .scrollIntoView({behavior: "smooth"})
-        setTimeout(()=>{
-            location.hash = '${toSec.target.dataset.nav}'
-        },170)
+window.addEventListener('scroll' ,activeSection);
+
+// Scroll to anchor ID using scrollTO event
+
+window.scroll(function() {
+    let scroll_top=$(window).scrollTop()
+    if(scroll_top > 100){
+        $('header').addClass("navbar_fix")
+    }
+    else{
+        $('header').removeClass("navbar_fix")
     }
 });
 
