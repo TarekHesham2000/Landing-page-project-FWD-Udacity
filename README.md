@@ -9,7 +9,4 @@ The name of the project is the landing page.
 
 ## Instructions
 
-fi hadha almashrue , astakhdamt Loops w Function w Data type w Arrays waeamilt mae JavaScript DOM , lakinani wajahat baed alsueubat walmushkilat alati lam 'atamakan min 'iijad halin laha mithl alqawalib alhirfiat biaistikhdam HTML
-187 / 5,000
-Translation results
-In this project I used Loops, Function, Data type and Arrays and it worked with JavaScript DOM, but I had some difficulties and issues which I could not find solution like literal templates with HTML.
+In this project I used Loops , Function , Data type , Arrays and worked with JavaScript DOM , but I had some difficulties and issues which I could not find solution like literal templates using HTML but I finally found a solution
